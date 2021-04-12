@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: __dirname,
-  mode: "development",
+  mode: "production",
   devtool: "source-map",
   entry: "./src/index.js",
   output: {
@@ -16,28 +16,6 @@ module.exports = {
   })],
   module: {
     rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",
-        ],
-      },
-      {
-        // test: /\.m?js$/,
-        // exclude: /(node_modules|bower_components)/,
-        // use: {
-        //   loader: 'babel-loader',
-        //   options: {
-        //     presets: ['@babel/preset-env'],
-        //     plugins: [
-        //       '@babel/plugin-proposal-object-rest-spread',
-        //       "@babel/plugin-proposal-class-properties"
-        //     ]
-        //   }
-        // }
-      },
       { 
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -48,7 +26,20 @@ module.exports = {
             }
           }
         ] 
-      }
+      },
+      {
+        test: /\.(html)$/,
+        exclude: [/node_modules/, require.resolve('./index.html')],
+        loader: 'html-loader',
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
+      },
     ],
   }
 }
